@@ -1,0 +1,4 @@
+venv/
+config.json
+mint*.db
+__pycache__
