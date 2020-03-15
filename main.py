@@ -3,6 +3,7 @@ import re
 import sqlite3
 import time
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from lib.google_source import Google
@@ -10,7 +11,9 @@ from lib.google_source import Google
 CONFIG_FILE = 'config.json'
 
 def get_rows(mint_username, mint_password, google):
-    driver = webdriver.Chrome()
+    options = Options()
+    options.add_argument("--headless")
+    driver = webdriver.Chrome(options=options)
     time.sleep(1)
 
     driver.get('http://www.mint.com')
