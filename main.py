@@ -2,6 +2,8 @@ import json
 import re
 import sqlite3
 import time
+from datetime import date
+from os import path
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -127,8 +129,16 @@ google = Google(
 )
 google.setUp()
 
+if not path.exists('mint.db'):
+    setup_db()
+
 rows = get_rows(config['mint_username'], config['mint_password'], google)
 new_rows = get_new_rows(rows)
 old_rows = get_old_rows(rows)
-print(google.send_message(format_rows(old_rows), config['to_email']))
+
+print(google.send_message(
+    'New transactions for: {0}'.format(date.today().strftime("%m/%d/%Y")),
+    format_rows(old_rows),
+    config['to_email'])
+)
 update_db(old_rows, new_rows)

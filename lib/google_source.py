@@ -67,10 +67,11 @@ class Google(Source):
         first_message = self.consumer.api_request_get('{0}/{1}'.format(MESSAGES_URL, messages['messages'][0]['id']), self.access_token)
         return first_message['snippet']
 
-    def send_message(self, message, to_address):
+    def send_message(self, subject, message, to_address):
         msg = MIMEText(self.header + message + self.footer)
         msg['To'] = to_address
         msg['From'] = self.from_address
+        msg['Subject'] = subject
         raw = base64.urlsafe_b64encode(msg.as_string().encode('utf-8')).decode()
         return self.consumer.api_request_post(
             SEND_URL, 
