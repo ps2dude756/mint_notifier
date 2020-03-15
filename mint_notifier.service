@@ -1,0 +1,10 @@
+[Unit]
+Description=Mint Notifier
+After=network.target
+
+[Service]
+User=YOUR_USER_NAME
+ExecStart=/usr/bin/env bash /home/YOUR_USER_NAME/git/mint_notifier/start.sh
+
+[Install]
+WantedBy=multi-user.target
